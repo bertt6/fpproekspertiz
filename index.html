@@ -4,19 +4,11 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
-    <script
-    src="https://code.jquery.com/jquery-3.3.1.js"
-    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-    crossorigin="anonymous"></script>
-    <script src="js/scripts.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     <title>FPPRO</title>
   </head>
-  <script>
-    function showImage(imgName) {
-      var curImage = document.getElementById("epi");
-      curImage.src = imgName;
-    }
-  </script>
   <body>
     <div class="container">
       <form class="epicodus" id="survey">
@@ -103,6 +95,16 @@
         <div id="outputTrack" class="jumbotron">
         </div>
       </form>
+      <script>
+        document.getElementById("submit").addEventListener("click", function() {
+    var inputValue = document.getElementById("phone-number").value;
+    var selectValue = document.getElementById("art").value;
+    var doc = new jsPDF();
+    doc.text(20, 20, "Input Value: " + inputValue);
+    doc.text(20, 30, "Select Value: " + selectValue);
+    doc.save("form-data.pdf");
+});
+      </script>
     </div>
   </body>
 </html>
