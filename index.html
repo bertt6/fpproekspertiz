@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
+        <script>
+    function sendData() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "/var/www/html/php/db2.php", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+          alert("Veri başarıyla gönderildi!");
+        }
+      };
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("phone-number").value;
+      xhr.send("name=" + name + "&email=" + email);
+    }
+        </script>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
@@ -56,7 +71,6 @@
             <option value="img/iphone14pro">iPhone 14 Pro</option>
             <option value="img/iphone14promax">iPhone 14 Pro Max </option>
           </select>
-          <img id="art" src="" height="200" />
         </div>
         <div class="form-group">
           <label for="leftright">Pil Değişti mi?</label>
@@ -68,41 +82,37 @@
         </div>
         <div class="form-group">
           <label for="name">Pil Sağlığı:</label>
-          <input type="text" class="form-control" id="name" placeholder="Pil Sağlığı" required>
+          <input type="text" class="form-control" id="batterychance" placeholder="Pil Sağlığı" required>
         </div>
         <div class="form-group">
           <label for="career">Ekranda çizikler mevcut mu?:</label>
-          <select class="form-control" id="career">
+          <select class="form-control" id="screen">
             <option value="0">Lütfen seçiniz.</option>
-            <option value="1">Mevcut.</option>
-            <option value="2">Değil.</option>
+            <option value="Mevcut">Mevcut.</option>
+            <option value="Mevcut Değil">Değil.</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="like"></label>
-          <select class="form-control" id="like">
-            <option value="1"></option>
-          </select>
         </div>
         <div class="form-group">
-          <label for="affinity"> </label>
-          <select class="form-control" id="affinity">
-            <option value="1"></option>
-          </select>
         </div>
-        <button class="btn" type="submit" id="submit">Submit</button>
-        <button class="btn" type="submit" id="retry">Try Again</button>
+        <button class="btn" id="submit" onclick="sendData()">Submit</button>
+        <button class="btn" id="retry">Try Again</button>
         <div id="outputTrack" class="jumbotron">
         </div>
       </form>
       <script>
         document.getElementById("submit").addEventListener("click", function() {
-    var inputValue = document.getElementById("phone-number").value;
-    var selectValue = document.getElementById("art").value;
+          var name = document.getElementById("name").value;
+          var phoneNumber = document.getElementById("phone-number").value;
+          var phoneModel = document.getElementById("art").value;
+          var isBatteryChance = document.getElementById("batterychance").value;
+          var screen = document.getElementById("screen").value;
     var doc = new jsPDF();
-    doc.text(20, 20, "Input Value: " + inputValue);
-    doc.text(20, 30, "Select Value: " + selectValue);
-    doc.save("form-data.pdf");
+    doc.text(20, 20, "Ad Soyad: " + name);
+    doc.text(20, 30, "Telefon Numarasi: " + phoneNumber);
+    doc.text(20, 40, "Telefon Modeli: " + phoneModel);
+    doc.text(20, 50, "Ekranda çizik durumu: " + screen);
 });
       </script>
     </div>
